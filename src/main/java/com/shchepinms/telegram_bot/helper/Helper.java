@@ -40,13 +40,12 @@ public class Helper {
 
 
     public static Helper getById(long telegramId) {
-        Helper result = null;
-        for (Map.Entry<Long, Helper> entry :
-                helpers.entrySet()) {
-            if (entry.getKey() == telegramId)
-                result = entry.getValue();
-        }
-        return result != null ? result : new Helper(telegramId);
+        return helpers.entrySet()
+                .stream()
+                .filter(entry -> entry.getKey() == telegramId)
+                .findFirst()
+                .map(Map.Entry::getValue)
+                .orElse(new Helper(telegramId));
     }
 
 
@@ -77,5 +76,4 @@ public class Helper {
     public void setSendMessageInterval(int sendMessageInterval) {
         this.sendMessageInterval = sendMessageInterval;
     }
-
 }

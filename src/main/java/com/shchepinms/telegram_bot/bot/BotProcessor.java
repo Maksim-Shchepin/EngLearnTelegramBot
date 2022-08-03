@@ -37,7 +37,12 @@ public class BotProcessor extends TelegramLongPollingCommandBot {
         }
     }
 
-    public static BotProcessor getInstance() {
+    /**
+     * Запуск бота.
+     *
+     * @return Возвращает экземпляр синглтона, создание экземпляра провоцирует инициализацию и запуск бота.
+     */
+    public static BotProcessor run() {
         if (instance == null)
             instance = new BotProcessor();
         return instance;
