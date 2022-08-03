@@ -6,6 +6,11 @@ import java.util.TreeMap;
 public class Helper {
 
     private static final Map<Long, Helper> helpers;
+    public static final int MSG_INTERVAL_MIN_HOUR = 1;
+    public static final int MSG_INTERVAL_MAX_HOUR = 14;
+    public static final int MSG_INTERVAL_MIN_MINUTES = 15;
+    public static final int MSG_INTERVAL_MAX_MINUTES = 840;
+
     private static final int DEFAULT_WORD_COUNT = 3;
     private static final int DEFAULT_MSG_INTERVAL = 4 * 60 * 60 * 1000;
     private static final int DEFAULT_FIRST_MESSAGE_TIME = 8 * 60 * 60 * 1000;

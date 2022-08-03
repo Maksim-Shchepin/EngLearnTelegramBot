@@ -3,9 +3,11 @@ package com.shchepinms.telegram_bot.commands;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.bots.AbsSender;
 
-public class CommandHelp extends Command {
+import java.util.Arrays;
 
-    public CommandHelp() {
+public class Help extends Command {
+
+    public Help() {
         super("help", "Помощь");
     }
 
