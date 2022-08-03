@@ -11,6 +11,10 @@ public class Helper {
     public static final int MSG_INTERVAL_MIN_MINUTES = 15;
     public static final int MSG_INTERVAL_MAX_MINUTES = 840;
 
+    public static final int MSG_WORDS_MIN_COUNT = 1;
+
+    public static final int MSG_WORDS_MAX_COUNT = 20;
+
     private static final int DEFAULT_WORD_COUNT = 3;
     private static final int DEFAULT_MSG_INTERVAL = 4 * 60 * 60 * 1000;
     private static final int DEFAULT_FIRST_MESSAGE_TIME = 8 * 60 * 60 * 1000;

@@ -19,11 +19,11 @@ public class Interval extends Command {
 
                 if (Helper.MSG_INTERVAL_MIN_HOUR <= time && time <= Helper.MSG_INTERVAL_MAX_HOUR) {
                     Helper.getById(message.getFrom().getId()).setSendMessageInterval(time * 60);
-                    message.setText("Интервал успешно установлен на " + time + " час.");
+                    message.setText("Интервал успешно установлен на " + time + " час.\n");
                 }
                 else if (Helper.MSG_INTERVAL_MIN_MINUTES <= time && time <= Helper.MSG_INTERVAL_MAX_MINUTES) {
                     Helper.getById(message.getFrom().getId()).setSendMessageInterval(time);
-                    message.setText("Интервал успешно установлен на " + time + " мин.");
+                    message.setText("Интервал успешно установлен на " + time + " мин.\n");
                 } else throw new NumberFormatException();
             } catch (NumberFormatException ex) {
                 System.err.println("Не подходящее время для интервала между сообщениями = " + strings[0]);

@@ -3,6 +3,7 @@ package com.shchepinms.telegram_bot.bot;
 import com.shchepinms.telegram_bot.commands.Help;
 import com.shchepinms.telegram_bot.commands.Interval;
 import com.shchepinms.telegram_bot.commands.Start;
+import com.shchepinms.telegram_bot.commands.Words;
 import com.shchepinms.telegram_bot.core.UserException;
 import com.shchepinms.telegram_bot.helper.Helper;
 import com.shchepinms.telegram_bot.settings.BotSettings;
@@ -53,6 +54,7 @@ public class BotProcessor extends TelegramLongPollingCommandBot {
         register(new Start());
         register(new Help());
         register(new Interval());
+        register(new Words());
         setRegisteredCommands();
     }
 
