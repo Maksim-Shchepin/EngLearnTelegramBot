@@ -59,14 +59,14 @@ public class BotProcessor extends TelegramLongPollingCommandBot {
     }
 
 
-    public void setRegisteredCommands() {
+    private void setRegisteredCommands() {
         registeredCommands = getRegisteredCommands()
                 .stream()
                 .map(IBotCommand::getCommandIdentifier)
                 .collect(Collectors.toList());
     }
 
-    public void sendMessage(Long chatId, String message) {
+    private void sendMessage(Long chatId, String message) {
         try {
             SendMessage sendMessage = SendMessage
                     .builder()
@@ -148,7 +148,7 @@ public class BotProcessor extends TelegramLongPollingCommandBot {
             } catch (UserException e) {
                 sendMessage(update.getMessage().getChatId(), e.getMessage());
             } catch (TelegramApiException | RuntimeException | IOException e) {
-                System.out.printf("Received message processing error: %s", e.getMessage());
+                System.out.printf("Received message processing error: %s%n", e.getMessage());
                 sendMessage(update.getMessage().getChatId(), "Ошибка обработки сообщения");
             }
         }

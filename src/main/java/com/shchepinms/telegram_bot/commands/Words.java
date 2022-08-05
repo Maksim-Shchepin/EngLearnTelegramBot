@@ -18,7 +18,8 @@ public class Words extends Command {
                 int wordsCount = Integer.parseInt(strings[0]);
 
                 if (Helper.MSG_WORDS_MIN_COUNT <= wordsCount && wordsCount <= Helper.MSG_WORDS_MAX_COUNT) {
-                    Helper.getById(message.getFrom().getId()).setWordCountPerDay(wordsCount);
+                    Helper.getById(message.getFrom().getId()).setWordsCountPerDay(wordsCount);
+                    System.out.println("слова установлены");
                     message.setText("Количество слов успешно установленно на " + wordsCount + " в день.\n");
                 }
                 else throw new NumberFormatException();

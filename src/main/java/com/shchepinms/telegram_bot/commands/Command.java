@@ -29,7 +29,7 @@ public class Command implements IBotCommand {
     }
 
     public void processMessage(AbsSender absSender, Message message, String[] strings) {
-        System.out.printf(String.format("COMMAND: %s(%s)", message.getText(), Arrays.toString(strings)));
+        System.out.printf(String.format("COMMAND: %s(%s)%n", message.getText(), Arrays.toString(strings)));
         try {
             SendMessage sendMessage = SendMessage
                     .builder()
@@ -38,7 +38,7 @@ public class Command implements IBotCommand {
                     .build();
             absSender.execute(sendMessage);
         } catch (TelegramApiException e) {
-            System.err.printf("Command message processing error: %s", e.getMessage());
+            System.err.printf("Command message processing error: %s%n", e.getMessage());
         }
     }
 }
