@@ -1,9 +1,18 @@
 package com.shchepinms.telegram_bot.helper;
 
+import com.shchepinms.telegram_bot.bot.BotProcessor;
+import com.shchepinms.telegram_bot.exercise.ExerciseGenerator;
+import com.shchepinms.telegram_bot.util.RelatedWords;
 import com.shchepinms.telegram_bot.util.UserConfigManager;
+import dictionary.Dictionary;
+import dictionary.EngRusDictionary;
 
 import java.io.*;
 import java.util.*;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 public class Helper implements Serializable {
 
@@ -33,9 +42,9 @@ public class Helper implements Serializable {
 
     private int sendMessageInterval;
 
-    transient private Timer msgSendTimer;
+    transient private ScheduledExecutorService sendMsgScheduler;
 
-    private Map<String, String> dictionary;
+    private Dictionary dictionary;
 
 
 
@@ -65,13 +74,26 @@ public class Helper implements Serializable {
 
 
     public Helper(long userTelegramId) {
-        this.dictionary = new TreeMap<>();
+        this.dictionary = new EngRusDictionary();
         this.wordsCountPerDay = DEFAULT_WORD_COUNT;
         this.sendMessageInterval = DEFAULT_MSG_INTERVAL_MINUTE;
         this.userTelegramId = userTelegramId;
-        this.msgSendTimer = new Timer(userTelegramId + "sendMsgThread");
         this.serialize();
         helpers.put(userTelegramId, this);
+    }
+
+    public void runEducation() {
+        sendMsgScheduler = new ScheduledThreadPoolExecutor(1);
+        ExerciseGenerator exercise = new ExerciseGenerator(this);
+        ScheduledFuture<?> future = sendMsgScheduler.scheduleAtFixedRate(exercise, 0, sendMessageInterval, TimeUnit.MINUTES);
+        sendMsgScheduler.schedule(() -> {
+            future.cancel(true);
+            sendMsgScheduler.shutdown();
+        }, 12, TimeUnit.SECONDS);
+    }
+
+    public void stopEducation() {
+
     }
 
     private void serialize() {
@@ -95,11 +117,11 @@ public class Helper implements Serializable {
     }
 
 
-    public Map<String, String> getDictionary() {
+    public Dictionary getDictionary() {
         return dictionary;
     }
 
-    public void setDictionary(Map<String, String> dictionary) {
+    public void setDictionary(Dictionary dictionary) {
         this.dictionary = dictionary;
         this.serialize();
     }
@@ -125,4 +147,5 @@ public class Helper implements Serializable {
         this.sendMessageInterval = sendMessageInterval;
         this.serialize();
     }
+
 }

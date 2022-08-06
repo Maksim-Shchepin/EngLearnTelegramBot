@@ -1,11 +1,12 @@
 package com.shchepinms.telegram_bot.util;
 
+import dictionary.Dictionary;
+import dictionary.EngRusDictionary;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.Map;
-import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -16,20 +17,20 @@ public class DictionaryParser {
 
     private DictionaryParser() {}
 
-    public static Map<String, String> parseText(InputStream stream) {
-        Map<String, String> result = new TreeMap<>();
+    public static Dictionary parseText(InputStream stream) {
+        Dictionary dictionary = new EngRusDictionary();
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(stream))) {
             while (reader.ready()) {
                 RelatedWords relatedWords = getRelatedWordsFromLine(reader.readLine());
                 if (relatedWords.isReady()) {
-                    result.put(relatedWords.getEng(), relatedWords.getRus());
+                    dictionary.addNewPair(relatedWords);
                     System.out.printf("**Parser** add new -> ENG = %s, RUS = %s%n", relatedWords.getEng(), relatedWords.getRus());
                 }
             }
         }catch (IOException e) {
             System.err.printf("Error reading file: %s", e.getMessage());
         }
-        return result;
+        return dictionary;
     }
 
     private static RelatedWords getRelatedWordsFromLine(String line) {

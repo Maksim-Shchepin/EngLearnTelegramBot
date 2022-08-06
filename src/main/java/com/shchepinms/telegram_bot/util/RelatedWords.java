@@ -1,6 +1,12 @@
 package com.shchepinms.telegram_bot.util;
 
-class RelatedWords {
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.Objects;
+
+public class RelatedWords implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
     private String russianWord;
     private String englishWord;
 
@@ -32,5 +38,18 @@ class RelatedWords {
 
     public boolean isReady() {
         return russianWord != null && englishWord != null;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        RelatedWords that = (RelatedWords) o;
+        return Objects.equals(russianWord, that.russianWord) && Objects.equals(englishWord, that.englishWord);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(russianWord, englishWord);
     }
 }

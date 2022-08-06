@@ -1,9 +1,6 @@
 package com.shchepinms.telegram_bot.bot;
 
-import com.shchepinms.telegram_bot.commands.Help;
-import com.shchepinms.telegram_bot.commands.Interval;
-import com.shchepinms.telegram_bot.commands.Start;
-import com.shchepinms.telegram_bot.commands.Words;
+import com.shchepinms.telegram_bot.commands.*;
 import com.shchepinms.telegram_bot.core.UserException;
 import com.shchepinms.telegram_bot.helper.Helper;
 import com.shchepinms.telegram_bot.settings.BotSettings;
@@ -44,17 +41,19 @@ public class BotProcessor extends TelegramLongPollingCommandBot {
      *
      * @return Возвращает экземпляр синглтона, создание экземпляра провоцирует инициализацию и запуск бота.
      */
-    public static BotProcessor run() {
+    public static BotProcessor getInstance() {
         if (instance == null)
             instance = new BotProcessor();
         return instance;
     }
 
     private void registerCommands() {
-        register(new Start());
-        register(new Help());
-        register(new Interval());
-        register(new Words());
+        register(new CmdStart());
+        register(new CmdHelp());
+        register(new CmdInterval());
+        register(new CmdWords());
+        register(new CmdRun());
+        register(new CmdStop());
         setRegisteredCommands();
     }
 
@@ -66,7 +65,7 @@ public class BotProcessor extends TelegramLongPollingCommandBot {
                 .collect(Collectors.toList());
     }
 
-    private void sendMessage(Long chatId, String message) {
+    public void sendMessage(Long chatId, String message) {
         try {
             SendMessage sendMessage = SendMessage
                     .builder()

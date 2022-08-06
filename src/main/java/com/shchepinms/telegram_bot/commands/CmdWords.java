@@ -4,9 +4,9 @@ import com.shchepinms.telegram_bot.helper.Helper;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.bots.AbsSender;
 
-public class Words extends Command {
+public class CmdWords extends Command {
 
-    public Words() {
+    public CmdWords() {
         super("words",
                 "Количество слов в день");
     }

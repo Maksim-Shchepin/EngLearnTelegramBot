@@ -4,9 +4,9 @@ import com.shchepinms.telegram_bot.helper.Helper;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.bots.AbsSender;
 
-public class Interval extends Command {
+public class CmdInterval extends Command {
 
-    public Interval() {
+    public CmdInterval() {
         super("interval",
                 "Время между сообщениями");
     }
